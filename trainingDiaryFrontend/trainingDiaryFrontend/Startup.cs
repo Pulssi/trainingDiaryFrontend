@@ -42,12 +42,12 @@ namespace trainingDiaryFrontend
                 app.UseHsts();
             }
 
-            app.Use(async (ctx, next) =>
-            {
-                ctx.Response.Headers.Add("Content-Security-Policy",
-                                         "font-src 'self' data:; img-src 'self' data:;");
-                await next();
-            });
+            //app.Use(async (ctx, next) =>
+            //{
+            //    ctx.Response.Headers.Add("Content-Security-Policy",
+            //                             "font-src 'self' data:; img-src 'self' data:;");
+            //    await next();
+            //});
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
