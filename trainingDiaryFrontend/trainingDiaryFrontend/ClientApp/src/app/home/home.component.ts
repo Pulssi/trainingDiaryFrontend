@@ -10,11 +10,4 @@ export class HomeComponent {
 
   constructor(private personService: PersonService) {
   }
-
-  getCurrentUser() {
-    this.personService.getPerson$("email").subscribe(result => {
-        this.currentUser = result.userName;
-        console.log(result);
-    });
-  }
 }

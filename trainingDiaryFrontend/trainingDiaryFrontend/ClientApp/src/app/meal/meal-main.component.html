@@ -1,0 +1,9 @@
+<h1>Meals</h1>
+
+<div *ngIf="meals">
+  <ul>
+    <li *ngFor="let meal of meals">
+      {{ meal.mealName }}
+    </li>
+  </ul>
+</div>

@@ -12,6 +12,8 @@ import { AuthGuard } from './auth/auth.guard';
 import { InterceptorService } from './interceptor/interceptor.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material'
+import { MealComponent } from './meal/meal-main.component';
+import { PersonService } from './person/person.service';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,7 @@ import { MatSnackBarModule } from '@angular/material'
     NavMenuComponent,
     HomeComponent,
     ProfileComponent,
+    MealComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -27,6 +30,7 @@ import { MatSnackBarModule } from '@angular/material'
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+      { path: 'meal', component: MealComponent, canActivate: [AuthGuard] },
     ]),
     BrowserAnimationsModule,
     MatSnackBarModule
@@ -36,7 +40,8 @@ import { MatSnackBarModule } from '@angular/material'
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
       multi: true
-    }
+    },
+    PersonService
   ],
   bootstrap: [AppComponent]
 })

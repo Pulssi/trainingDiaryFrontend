@@ -5,6 +5,8 @@ import { from, of, Observable, BehaviorSubject, combineLatest, throwError } from
 import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { NotificationService } from '../core/notification.service';
+import { HttpClient } from '@angular/common/http';
+import { PersonService } from '../person/person.service';
 
 @Injectable({
   providedIn: 'root'
@@ -44,7 +46,7 @@ export class AuthService {
   // Create a local property for login status
   loggedIn: boolean = null;
 
-  constructor(private router: Router, private notificationService: NotificationService) {
+  constructor(private router: Router, private notificationService: NotificationService, private personService: PersonService) {
     // On initial load, check authentication state with authorization server
     // Set up local auth streams if user is already authenticated
     this.localAuthSetup();
@@ -98,6 +100,15 @@ export class AuthService {
   }
 
   private handleAuthCallback() {
+    // Handle getting person object from app DB if user is logged in
+    console.log("PersonID handle");
+    this.getUser$().subscribe(user => {
+      console.log(user);
+      if ((typeof user !== 'undefined') && user.hasOwnProperty("email")) {
+        this.personService.getPerson(user.email);
+      }
+    });
+
     // Call when app reloads after user logs in with Auth0
     const params = window.location.search;
     console.log("CALLBACK");
@@ -125,6 +136,7 @@ export class AuthService {
       // Response will be an array of user and login status
       authComplete$.subscribe(([user, loggedIn]) => {
         // Redirect to target route after callback processing
+        console.log("Auth complete")
         this.router.navigate([targetRoute]);
       });
     }
