@@ -12,8 +12,10 @@ import { AuthGuard } from './auth/auth.guard';
 import { InterceptorService } from './interceptor/interceptor.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material'
+import { MatTableModule } from '@angular/material/table';
 import { MealComponent } from './meal/meal-main.component';
 import { PersonService } from './person/person.service';
+import { TrainingComponent } from './training/training-main.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { PersonService } from './person/person.service';
     HomeComponent,
     ProfileComponent,
     MealComponent,
+    TrainingComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -29,19 +32,20 @@ import { PersonService } from './person/person.service';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+      { path: 'training', component: TrainingComponent, canActivate: [AuthGuard] },
       { path: 'meal', component: MealComponent, canActivate: [AuthGuard] },
+      { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
     ]),
     BrowserAnimationsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTableModule,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
       multi: true
-    },
-    PersonService
+    }
   ],
   bootstrap: [AppComponent]
 })
