@@ -19,8 +19,8 @@ export class TrainingComponent implements OnInit {
 
   ngOnInit() {
     this.personService.getValue().subscribe(person => {
-      if (person.id !== 0) {
-        this.personId = person.id;
+      if (person.idPerson !== 0) {
+        this.personId = person.idPerson;
         this.getGymSets();
       }
     })

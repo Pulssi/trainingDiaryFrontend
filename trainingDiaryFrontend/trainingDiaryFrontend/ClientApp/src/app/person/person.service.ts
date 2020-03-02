@@ -11,7 +11,7 @@ export class PersonService {
   private person: BehaviorSubject<Person>;
 
   constructor(private http: HttpClient) {
-    this.person = new BehaviorSubject<Person>({ id: 0, userName: "", email: "" });
+    this.person = new BehaviorSubject<Person>({ idPerson: 0, userName: "", email: "" });
   }
 
   getValue(): Observable<Person> {
@@ -23,7 +23,8 @@ export class PersonService {
 
   getPerson(email) {
     this.http.get<Person>(environment.baseApiUrl + 'person/' + email).subscribe(person => {
-      this.setValue({ id: person.idPerson, name: person.userName, email: person.email });
+      let _person: Person = person;
+      this.setValue(_person);
       console.log("PERSON FETCHED FROM THE API");
     })
   }
