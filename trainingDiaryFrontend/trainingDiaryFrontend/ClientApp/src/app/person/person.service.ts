@@ -26,6 +26,9 @@ export class PersonService {
       let _person: Person = person;
       this.setValue(_person);
       console.log("PERSON FETCHED FROM THE API");
+    }, error => {
+        console.log("ERROR WHEN FETCHING PERSON FROM API");
+        console.log(error);
     })
   }
 }
